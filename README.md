@@ -21,7 +21,8 @@ from statsmodels.tsa.statespace.sarimax import SARIMAX
 from sklearn.metrics import mean_squared_error
 data = pd.read_csv('Temperature.csv')
 data['date'] = pd.to_datetime(data['date'])
-
+```
+```
 plt.plot(data['date'], data['temp'])
 plt.xlabel('Date')
 plt.ylabel('Temperature')
@@ -43,7 +44,8 @@ plot_acf(data['temp'])
 plt.show()
 plot_pacf(data['temp'])
 plt.show()
-
+```
+```
 sarima_model = SARIMAX(data['temp'], order=(1, 1, 1), seasonal_order=(1, 1, 1, 12))
 sarima_result = sarima_model.fit()
 
@@ -52,13 +54,15 @@ train, test = data['temp'][:train_size], data['temp'][train_size:]
 
 sarima_model = SARIMAX(train, order=(1, 1, 1), seasonal_order=(1, 1, 1, 12))
 sarima_result = sarima_model.fit()
-
+```
+```
 predictions = sarima_result.predict(start=len(train), end=len(train) + len(test) - 1, dynamic=False)
 
 mse = mean_squared_error(test, predictions)
 rmse = np.sqrt(mse)
 print('RMSE:', rmse)
-
+```
+```
 plt.plot(test.index, test, label='Actual')
 plt.plot(test.index, predictions, color='red', label='Predicted')
 plt.xlabel('Date')
